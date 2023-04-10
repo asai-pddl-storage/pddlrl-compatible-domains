@@ -5,6 +5,11 @@
 all: instances
 
 build: $(patsubst %.ros, %.bin, $(wildcard *.ros))
+	$(MAKE) -C blocks
+	$(MAKE) -C ferry
+	$(MAKE) -C gripper
+	$(MAKE) -C logistics
+	$(MAKE) -C satellite
 	$(MAKE) -C parking
 	$(MAKE) -C miconic
 	$(MAKE) -C visitall
@@ -18,3 +23,9 @@ instances: build
 	cd parking ; ./generate-test-train-instances-pddlrl.sh
 	cd miconic ; ./generate-test-train-instances-pddlrl.sh
 	cd visitall ; ./generate-test-train-instances-pddlrl.sh
+	cd blocks ; ./generate-test-train-instances-pddlrl.sh
+	cd ferry ; ./generate-test-train-instances-pddlrl.sh
+	cd gripper ; ./generate-test-train-instances-pddlrl.sh
+	cd logistics ; ./generate-test-train-instances-pddlrl.sh
+	cd satellite ; ./generate-test-train-instances-pddlrl.sh
+	./remove-trivial-instances.sh
